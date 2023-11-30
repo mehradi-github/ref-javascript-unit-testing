@@ -26,3 +26,13 @@ describe("class HttpError", () => {
     expect(testError.data).toBeUndefined();
   });
 });
+
+describe("class ValidationError", () => {
+  it("should contain the provided message", () => {
+    const testMessage = "test";
+
+    const testError = new ValidationError(testMessage);
+
+    expect(testError.message).toBe(testMessage);
+  });
+});
