@@ -16,3 +16,11 @@ it("should throw an error if an empty string is provided as a value", () => {
 
   expect(validationFn).toThrow();
 });
+it("should throw an error with the provided error message", () => {
+  const testInput = "";
+  const testErrorMessage = "Test";
+
+  const validationFn = () => validateNotEmpty(testInput, testErrorMessage);
+
+  expect(validationFn).toThrow(testErrorMessage);
+});
