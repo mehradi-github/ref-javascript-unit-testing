@@ -1,5 +1,6 @@
 import { expect, vi, it } from "vitest";
 import { sendDataRequest } from "./http";
+import { HttpError } from "./errors";
 const testResponseData = { testKey: "testData" };
 const testFetch = vi.fn((url, options) => {
   return new Promise((resolve, reject) => {
@@ -23,4 +24,17 @@ vi.stubGlobal("fetch", testFetch);
 it("should return any available response data", () => {
   const testData = { key: "test" };
   expect(sendDataRequest(testData)).resolves.toEqual(testResponseData);
+});
+it("should convert the provided data to JSON before sending the request", async () => {
+  const testData = { key: "test" };
+
+  let errorMessage;
+
+  try {
+    await sendDataRequest(testData);
+  } catch (error) {
+    errorMessage = error;
+  }
+
+  expect(errorMessage).not.toBe("Not a string.");
 });
